@@ -7,7 +7,7 @@ export const AppRoutes = () => {
     return (
         <Routes>
             <Route path='/' element={<PageLogin />} />
-            <Route path='/pageCadastro' element={<PageCaG1abriel+dastro />} />
+            <Route path='/pageCadastro' element={<PageCadastro />} />
             <Route path='/pageDashboard' element={<PageDashboard />} />
         </Routes>
     )
