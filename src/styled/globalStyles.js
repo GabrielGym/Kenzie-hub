@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
 
@@ -66,4 +66,4 @@ button{
     color: var(--grey-0);
     cursor: pointer;
 }
-`;
+`

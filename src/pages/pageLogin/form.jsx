@@ -1,25 +1,33 @@
 import { FormStyled } from "./formStyled"
 import { useNavigate } from 'react-router-dom'
-import { useForm } from "react-hook-form";
-import { Api } from "../../components/services";
-import { toast } from "react-toastify";
+import { useForm } from "react-hook-form"
+import { Api } from "../../components/services"
+import { toast } from "react-toastify"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from 'yup'
 
+const schema = yup.object({
+    email: yup.string().required("O email é obrigátorio"),
+    password: yup.string().required("A senha é obrigátoria")
+}).required()
 
 export const Form = () => {
 
     const navigate = useNavigate()
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    })
 
     const onSubmit = async (data) => {
         try {
             const response = await Api.post('/sessions', data)
             const user = JSON.stringify(response.data.user)
-            localStorage.setItem("@USERID", user)
-            localStorage.setItem("@TOKEN", response.data.token)
-            toast.success("Login realizado com sucesso")
+            window.localStorage.setItem("@USERID", user)
+            window.localStorage.setItem("@TOKEN", response.data.token)
+            toast.success("Login realizado com sucesso!")
             setTimeout(() => { navigate("/PageDashboard") }, 2850)
         } catch (error) {
-            toast.error(`${error}`)
+            toast.error(`Email ou senha invalida!`)
             reset()
         }
 
@@ -28,9 +36,11 @@ export const Form = () => {
     return (
         <FormStyled onSubmit={handleSubmit(onSubmit)}>
             <label>Email</label>
-            <input placeholder="Digite seu email" {...register('email')} />
+            <input type='email' placeholder="Digite seu email" {...register('email')} />
+            <p>{errors.email?.message}</p>
             <label>Senha</label>
-            <input placeholder="Digite sua senha" {...register('password')} />
+            <input type='password' placeholder="Digite sua senha" {...register('password')} />
+            <p>{errors.password?.message}</p>
             <button>Entrar</button>
         </FormStyled>
     )

@@ -13,7 +13,7 @@ export const PageDashboard = () => {
         <DivStyled>
             <Header/>
             <SectionInfo infoUser={infoUser}/>
-            <SectionTecnologias infoUser={infoUser}/>
+            <SectionTecnologias infoUser={infoUser} />
         </DivStyled>
     )
 }

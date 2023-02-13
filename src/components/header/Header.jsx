@@ -7,7 +7,7 @@ export const Header = () => {
     const navigate = useNavigate()
 
     const redirectionPageLogin = () => {
-        localStorage.clear("@USERID")
+        window.localStorage.clear()
         navigate("/")
     }
 

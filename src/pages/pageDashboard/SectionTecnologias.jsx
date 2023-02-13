@@ -1,6 +1,13 @@
 import { Card } from "../../components/CardTech/Card"
 import { CardNull } from "../../components/CardTech/CardNull"
 import { SectionTecnologiasStyled } from "./SectionTecnologiasStyled"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
+const schema = yup.object({
+    title: yup.string().required("O nome tecnologia é obrigátoria"),
+    status: yup.string().required("O nivel de conhecimento é obrigátorio")
+}).required()
 
 export const SectionTecnologias = ({ infoUser }) => {
     return (
