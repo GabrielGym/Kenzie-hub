@@ -9,6 +9,8 @@ export const SectionTecnologiasStyled = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+
 
   > div {
     display: flex;

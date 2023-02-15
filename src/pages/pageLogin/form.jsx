@@ -1,7 +1,7 @@
 import { FormStyled } from "./formStyled"
 import { useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
-import { Api } from "../../components/services"
+import { Api } from '../../services'
 import { toast } from "react-toastify"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup'
@@ -30,7 +30,6 @@ export const Form = () => {
             toast.error(`Email ou senha invalida!`)
             reset()
         }
-
     }
 
     return (

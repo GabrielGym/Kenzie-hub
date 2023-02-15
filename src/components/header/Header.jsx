@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import logo from '../../assets/logo (1).svg'
+import logo from '../../assets/logo(1).svg'
 import { HeaderStyled } from "./HeaderStyled"
 
 

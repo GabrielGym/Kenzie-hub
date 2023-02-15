@@ -1,27 +1,44 @@
 import { Card } from "../../components/CardTech/Card"
 import { CardNull } from "../../components/CardTech/CardNull"
 import { SectionTecnologiasStyled } from "./SectionTecnologiasStyled"
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { useNavigate } from "react-router-dom"
+import { Api } from "../../services"
+import { useEffect, useState } from "react"
 
-const schema = yup.object({
-    title: yup.string().required("O nome tecnologia é obrigátoria"),
-    status: yup.string().required("O nivel de conhecimento é obrigátorio")
-}).required()
 
-export const SectionTecnologias = ({ infoUser }) => {
+export const SectionTecnologias = ({ setModal }) => {
+    const token = localStorage.getItem('@TOKEN')
+    const navigate = useNavigate()
+    const [user, setUser] = useState([])
+
+    useEffect(() => {
+        async function getUser() {
+            try {
+                const dadosUser = await Api.get('/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                setUser(dadosUser.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getUser()
+    }, [user])
+
     return (
         <SectionTecnologiasStyled>
             <div>
                 <h2>Tecnologias</h2>
-                <button><h2>+</h2></button>
+                <button onClick={() => navigate(":infoTechs")}><h2>+</h2></button>
             </div>
             <ul>
-                {infoUser.techs.length === 0 ? (
+                {user.length === 0 ? (
                     <CardNull />
                 ) : (
-                    infoUser.techs.map((tech, index) => {
-                        return <Card tech={tech} key={index} />
+                    user.techs.map((tech, index) => {
+                        return <Card tech={tech} key={index} setModal={setModal} />
                     })
 
                 )}

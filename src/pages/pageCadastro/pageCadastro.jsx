@@ -1,4 +1,4 @@
-import logo from '../../assets/logo (1).svg'
+import logo from '../../assets/logo(1).svg'
 import { useNavigate } from 'react-router-dom'
 import { Form } from './form'
 import { SectionStyled } from './pageCadastroStyled'
