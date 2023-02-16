@@ -46,7 +46,7 @@ export const FormAdd = () => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>Nome</label>
-                <input type="text" {...register('title')} />
+                <input type="text" {...register('title')} placeholder="Nome da tecnologia"/>
                 <p>{errors.title?.message}</p>
                 <label>Selecionar status</label>
                 <select {...register('status')}>
