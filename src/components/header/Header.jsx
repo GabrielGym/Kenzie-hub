@@ -6,7 +6,7 @@ import { HeaderStyled } from "./HeaderStyled"
 export const Header = () => {
     const navigate = useNavigate()
 
-    const redirectionPageLogin = () => {
+    const Logout = () => {
         window.localStorage.clear()
         navigate("/")
     }
@@ -15,7 +15,7 @@ export const Header = () => {
         <HeaderStyled>
             <nav>
                 <img src={logo} alt="Kenzie hub" />
-                <button onClick={redirectionPageLogin}>Sair</button>
+                <button onClick={Logout}>Sair</button>
             </nav>
         </HeaderStyled>
     )
