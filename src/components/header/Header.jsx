@@ -1,15 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
 import logo from '../../assets/logo(1).svg'
+import { FucoesExtrasContext } from "../../providers/funcoesExtras"
 import { HeaderStyled } from "./HeaderStyled"
 
 
 export const Header = () => {
-    const navigate = useNavigate()
-
-    const Logout = () => {
-        window.localStorage.clear()
-        navigate("/")
-    }
+    const { navigate, Logout } = useContext(FucoesExtrasContext)
 
     return (
         <HeaderStyled>

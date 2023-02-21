@@ -1,46 +1,28 @@
 import { Card } from "../../components/CardTech/Card"
 import { CardNull } from "../../components/CardTech/CardNull"
 import { SectionTecnologiasStyled } from "./SectionTecnologiasStyled"
-import { useNavigate } from "react-router-dom"
-import { Api } from "../../services"
-import { useEffect, useState } from "react"
+import { useContext } from "react"
+import { FucoesExtrasContext } from "../../providers/funcoesExtras"
+import { InfoUserContext } from "../../providers/infosUSerContext"
 
 
-export const SectionTecnologias = ({ setModal }) => {
-    const token = localStorage.getItem('@TOKEN')
-    const navigate = useNavigate()
-    const [user, setUser] = useState([])
-
-    useEffect(() => {
-        async function getUser() {
-            try {
-                const dadosUser = await Api.get('/profile', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                setUser(dadosUser.data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getUser()
-    }, [user])
+export const SectionTecnologias = () => {
+    const { navigate } = useContext(FucoesExtrasContext)
+    const { user } = useContext(InfoUserContext)
 
     return (
         <SectionTecnologiasStyled>
             <div>
                 <h2>Tecnologias</h2>
-                <button onClick={() => navigate(":infoTechs")}><h2>+</h2></button>
+                <button onClick={() => navigate("/PageDashboard/:infoTechs")}><h2>+</h2></button>
             </div>
             <ul>
-                {user.length === 0 ? (
+                {(user.techs == undefined || user.techs.length <= 0) ? (
                     <CardNull />
                 ) : (
                     user.techs.map((tech, index) => {
-                        return <Card tech={tech} key={index} setModal={setModal} />
+                        return <Card tech={tech} key={index} />
                     })
-
                 )}
             </ul>
         </SectionTecnologiasStyled>

@@ -1,6 +1,9 @@
+import { useContext } from "react"
+import { FucoesExtrasContext } from "../../providers/funcoesExtras"
 import { SectionInfoStyled } from "./SectionInfoStyled"
 
-export const SectionInfo = ({infoUser}) => {
+export const SectionInfo = ({}) => {
+    const { infoUser } = useContext(FucoesExtrasContext)
 
     return (
         <SectionInfoStyled>

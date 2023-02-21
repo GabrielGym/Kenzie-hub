@@ -1,8 +1,10 @@
+import { useContext } from "react"
+import { VerificacaoModal } from "../../providers/verificaçãoModalContext"
 import { FormAdd } from "../FormAdd/form"
 import { FormEdit } from "../FormEdit/FormEdit"
-import { DivStyledEdit } from "./EditTech.js"
 
-export const InfoTechs = ({ modal, setModal }) => {
+export const InfoTechs = () => {
+    const { modal, setModal } = useContext(VerificacaoModal)
 
     return (
         !modal ? (

@@ -1,7 +1,13 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import lixo from '../../assets/lixo.png'
+import { VerificacaoModal } from "../../providers/verificaçãoModalContext"
+import { Link } from "react-router-dom";
+import { FuncoesTechContext } from "../../providers/funcoesTechContext";
 
-export const Card = ({ tech, setModal }) => {
+export const Card = ({ tech }) => {
+    const { setModal } = useContext(VerificacaoModal)
+    const { DeleteTech } = useContext(FuncoesTechContext)
 
     const navigate = useNavigate()
     const info = () => {
@@ -15,10 +21,13 @@ export const Card = ({ tech, setModal }) => {
 
     return (
         <li>
-            <button onClick={info}>
+            <Link to={tech.id} onClick={info}>
                 <h2>{tech.title}</h2>
                 <p>{tech.status}</p>
-            </button>
+            </Link>
+            <button onClick={() => {
+                DeleteTech(tech.id)
+            }}><img src={lixo} alt="deletar" /></button>
         </li>
     )
 }

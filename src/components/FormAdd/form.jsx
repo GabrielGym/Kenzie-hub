@@ -1,42 +1,18 @@
 import { useForm } from "react-hook-form"
-import { toast } from "react-toastify"
 import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from 'yup'
-import { Api } from "../../services"
-import { useNavigate } from "react-router-dom"
 import { DivStyledAdd } from "../infoTechs/AddTechsStyled"
-
-const schema = yup.object({
-    title: yup.string().required("O nome tecnologia é obrigátoria"),
-    status: yup.string().required("O nivel de conhecimento é obrigátorio")
-}).required()
+import { useContext } from "react"
+import { FormsContext } from "../../providers/formsContext"
+import { FuncoesTechContext } from "../../providers/funcoesTechContext"
 
 export const FormAdd = () => {
-    const navigate = useNavigate()
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
+    const { schemaAdd, navigate} = useContext(FormsContext)
+    const { addTech } = useContext(FuncoesTechContext)
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schemaAdd)
     })
-
-    const onSubmit = async (data) => {
-        const token = localStorage.getItem('@TOKEN')
-        try {
-
-            await Api.post('/users/techs', data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            toast.success("Login realizado com sucesso!")
-            setTimeout(() => { navigate("/PageDashboard") }, 2850)
-
-        } catch (error) {
-            console.log(error)
-            toast.error(`Tecnologia invalida!`)
-            reset()
-        }
-
-    }
 
     return (<DivStyledAdd>
         <div>
@@ -44,7 +20,7 @@ export const FormAdd = () => {
                 <h2>Cadastrar Tecnologia</h2>
                 <button onClick={() => navigate('/PageDashboard')}><p>X</p></button>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(addTech)}>
                 <label>Nome</label>
                 <input type="text" {...register('title')} placeholder="Nome da tecnologia"/>
                 <p>{errors.title?.message}</p>

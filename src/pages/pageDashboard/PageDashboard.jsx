@@ -3,22 +3,26 @@ import { DivStyled } from "./PageDashboardStyled"
 import { SectionInfo } from "./SectionInfo"
 import { SectionTecnologias } from "./SectionTecnologias"
 import { Outlet } from "react-router-dom"
+import { useContext } from "react"
+import { FucoesExtrasContext } from "../../providers/funcoesExtras"
 
 
-export const PageDashboard = ({setModal}) => {
+export const PageDashboard = () => {
 
-    const infos = localStorage.getItem("@USERID")
-    const infoUser = JSON.parse(infos)
+    const { navigate, token, verificacaoDeslogado } = useContext(FucoesExtrasContext)
+
+    verificacaoDeslogado()
 
     return (
-        <>
-            <Outlet />
+        (token) ? (
             <DivStyled>
+                <Outlet />
                 <Header />
-                <SectionInfo infoUser={infoUser} />
-                <SectionTecnologias setModal={setModal} />
+                <SectionInfo />
+                <SectionTecnologias />
             </DivStyled>
-        </>
-
+        ) : (
+            navigate('/')
+        )
     )
 }

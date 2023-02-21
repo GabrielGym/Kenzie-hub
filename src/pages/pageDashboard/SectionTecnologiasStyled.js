@@ -11,7 +11,6 @@ export const SectionTecnologiasStyled = styled.section`
   gap: 20px;
   position: relative;
 
-
   > div {
     display: flex;
     justify-content: space-between;
@@ -46,25 +45,48 @@ export const SectionTecnologiasStyled = styled.section`
     height: 48px;
     border-radius: 4px;
     background-color: var(--grey-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
   }
 
-  > ul > li > button {
+  > ul > li > a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 100%;
+    min-width: 90%;
     min-height: 100%;
     border: none;
     border-radius: 4px;
     padding: 0px 20px;
     background-color: transparent;
+    background-color: var(--grey-4);
+    text-decoration: none;
   }
 
-  > ul > li > button:hover {
+  > ul > li:hover {
     background-color: var(--grey-1);
-    color: var(--grey-0);
-    > p {
+
+    > a {
+      background-color: var(--grey-1);
+    }
+
+    > a > p {
       color: var(--grey-0);
     }
+  }
+
+  > ul > li > button {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
   }
 `;

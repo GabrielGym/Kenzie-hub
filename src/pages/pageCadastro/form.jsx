@@ -1,42 +1,18 @@
-import { useNavigate } from 'react-router-dom'
 import { FormStyled } from './formStyled'
 import { useForm } from "react-hook-form";
-import { Api } from '../../services'
-import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup'
-
-const schema = yup.object({
-    name: yup.string().required("O nome é obrigátorio"),
-    email: yup.string().required("O email é obrigátorio"),
-    password: yup.string()
-    .matches(/(\d)/, 'Deve conter ao menos 1 número')
-    .matches(/[A-Z]/, 'Deve conter ao menos 1 letra maiúscula')
-    .matches(/[\w|_]/, 'Deve ter pelo menos um caracter especial')
-    .matches(/.{8,}/, 'Deve aver no mínimo 8 caracteres').required("A senha é obrigátoria"),
-    passwordConfirmation: yup.string().oneOf([yup.ref('password')], 'A confirmação de senha deve ser igual a senha').required("É necessário a confirmação da senha"),
-    bio: yup.string().required("Escreva um pouco sobre você"),
-    contact: yup.string().required("Coloque uma forma de contato"),
-    course_module: yup.string().required("Escolha o modulo que você está"),
-}).required()
+import { useContext } from 'react';
+import { FormsContext } from '../../providers/formsContext';
 
 export const Form =  () => {
-    const navigate = useNavigate()
+    const { schemaCadastro, onSubmitCadastro} = useContext(FormsContext)
     const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(schemaCadastro)
     })
 
-    const onSubmit = async (data) => {
-        try {
-            const response = await Api.post("/users", data)
-            toast.success("Usuário cadastrado com sucesso!")
-            setTimeout(() => { navigate("/") }, 2850)
-        } catch (error) {
-            toast.error(`Erro ao cadastrar usuário, verifique os dados novamente!`)
-        }
-    }
+    
     return (
-        <FormStyled onSubmit={handleSubmit(onSubmit)}>
+        <FormStyled onSubmit={handleSubmit(onSubmitCadastro)}>
             <label>Nome</label>
             <input placeholder="Digite aqui seu nome" {...register("name")} />
             <p>{errors.name?.message}</p>
