@@ -55,11 +55,12 @@ export const SectionTecnologiasStyled = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 90%;
+    width: 100%;
+    max-width: 100%;
     min-height: 100%;
     border: none;
     border-radius: 4px;
-    padding: 0px 20px;
+    padding: 0px 50px 0px 20px;
     background-color: transparent;
     background-color: var(--grey-4);
     text-decoration: none;
